@@ -100,7 +100,7 @@ public class Card extends ImageView {
         cardBackImage = new Image("card_images/card_back.png");
         String suitName = "";
         for (int suit = 1; suit < 5; suit++) {
-            switch (suit) {
+            /*switch (suit) {
                 case 1:
                     suitName = "hearts";
                     break;
@@ -113,13 +113,33 @@ public class Card extends ImageView {
                 case 4:
                     suitName = "clubs";
                     break;
-            }
+            }*/
+
+            suitName = CardColor.valueOf("Color" + suit).suitNameCode;
+
             for (int rank = 1; rank < 14; rank++) {
                 String cardName = suitName + rank;
                 String cardId = "S" + suit + "R" + rank;
                 String imageFileName = "card_images/" + cardName + ".png";
                 cardFaceImages.put(cardId, new Image(imageFileName));
             }
+        }
+    }
+
+    public enum CardColor{
+        Color1("hearts"),
+        Color2("diamonds"),
+        Color3("spades"),
+        Color4("clubs");
+
+        private final String suitNameCode;
+
+        CardColor(String suitNameCode){
+            this.suitNameCode = suitNameCode;
+        }
+
+        public String suitNameCode(){
+            return suitNameCode;
         }
     }
 
