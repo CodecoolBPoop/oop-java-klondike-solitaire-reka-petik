@@ -120,7 +120,33 @@ public class Game extends Pane {
 
     public boolean isMoveValid(Card card, Pile destPile) {
         //TODO
-        return true;
+        boolean isMoveValid = true;
+        Card lastCardDestPile = destPile.getTopCard();
+        if (lastCardDestPile.equals(tableauPiles)) {
+            if (lastCardDestPile != null) {
+                if (Card.isOppositeColor(card, lastCardDestPile) && (card.getRank() + 1 == lastCardDestPile.getRank())) {
+                    isMoveValid = true;
+                } else {
+                    isMoveValid = false;
+                }
+            } else {
+                if (card.getRank() != 13) {
+                    isMoveValid = false;
+                }
+            }
+        } else if (lastCardDestPile.equals(foundationPiles)) {
+            if (lastCardDestPile != null) {
+                if ((card.) && (card.getRank() == lastCardDestPile.getRank()+1)) {
+                    isMoveValid = true;
+                } else {
+                    isMoveValid = false;
+                }
+            } else {
+                if (card.getRank() != 13) {
+                    isMoveValid = false;
+                }
+        }
+        return isMoveValid;
     }
     private Pile getValidIntersectingPile(Card card, List<Pile> piles) {
         Pile result = null;
