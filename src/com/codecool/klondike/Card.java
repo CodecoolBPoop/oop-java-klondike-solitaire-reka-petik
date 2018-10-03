@@ -79,7 +79,10 @@ public class Card extends ImageView {
 
     public static boolean isOppositeColor(Card card1, Card card2) {
         //TODO
-        return true;
+        if (CardType.valueOf("Color" + card1.suit).cardcolor != CardType.valueOf("Color" + card2.suit).cardcolor){
+            return true;
+        }
+        return false;
     }
 
     public static boolean isSameSuit(Card card1, Card card2) {
@@ -115,7 +118,7 @@ public class Card extends ImageView {
                     break;
             }*/
 
-            suitName = CardColor.valueOf("Color" + suit).suitNameCode;
+            suitName = CardType.valueOf("Color" + suit).suitNameCode;
 
             for (int rank = 1; rank < 14; rank++) {
                 String cardName = suitName + rank;
@@ -126,16 +129,18 @@ public class Card extends ImageView {
         }
     }
 
-    public enum CardColor{
-        Color1("hearts"),
-        Color2("diamonds"),
-        Color3("spades"),
-        Color4("clubs");
+    public enum CardType {
+        Color1("hearts", 1),
+        Color2("diamonds", 1),
+        Color3("spades", 2),
+        Color4("clubs", 2);
 
         private final String suitNameCode;
+        private int cardcolor;
 
-        CardColor(String suitNameCode){
+        CardType(String suitNameCode, int color){
             this.suitNameCode = suitNameCode;
+            this.cardcolor = color;
         }
 
         public String suitNameCode(){
