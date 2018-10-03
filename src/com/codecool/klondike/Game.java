@@ -136,16 +136,18 @@ public class Game extends Pane {
             }
         } else if (lastCardDestPile.equals(foundationPiles)) {
             if (lastCardDestPile != null) {
-                if ((card.) && (card.getRank() == lastCardDestPile.getRank()+1)) {
+                if ((Card.isSameSuit(card, lastCardDestPile)) && (card.getRank() == lastCardDestPile.getRank()+1)) {
                     isMoveValid = true;
                 } else {
                     isMoveValid = false;
                 }
             } else {
-                if (card.getRank() != 13) {
+                if (card.getRank() != 1) {
                     isMoveValid = false;
                 }
+            }
         }
+        else {isMoveValid = false;}
         return isMoveValid;
     }
     private Pile getValidIntersectingPile(Card card, List<Pile> piles) {
