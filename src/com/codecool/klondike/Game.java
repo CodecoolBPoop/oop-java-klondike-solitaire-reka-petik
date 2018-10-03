@@ -90,6 +90,9 @@ public class Game extends Pane {
 
     public boolean isGameWon() {
         //TODO
+        if (discardPile.isEmpty() && stockPile.isEmpty() && tableauPiles.isEmpty()) {
+            return true;}
+
         return false;
     }
 
@@ -146,8 +149,7 @@ public class Game extends Pane {
                     isMoveValid = false;
                 }
             }
-        }
-        else {isMoveValid = false;}
+        } else {isMoveValid = false;}
         return isMoveValid;
     }
     private Pile getValidIntersectingPile(Card card, List<Pile> piles) {
