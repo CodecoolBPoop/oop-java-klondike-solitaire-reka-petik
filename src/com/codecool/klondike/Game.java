@@ -14,6 +14,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 
+import java.awt.print.Printable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -88,6 +89,14 @@ public class Game extends Pane {
         List<Pile> piles = FXCollections.observableArrayList();
         piles.addAll(tableauPiles);
         piles.addAll(foundationPiles);
+        //TODO
+        if(card.getContainingPile().getPileType() == Pile.PileType.TABLEAU ){
+            if (pile.getTopCard() != null) {
+               if(card.getContainingPile().getTopCard(1).isFaceDown() == true) {
+                   card.getContainingPile().getTopCard(1).flip();
+               }
+           }
+        }
         //TODO
         if (pile != null) {
             handleValidMove(card, pile);
