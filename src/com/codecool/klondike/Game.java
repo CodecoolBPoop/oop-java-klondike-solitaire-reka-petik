@@ -14,9 +14,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class Game extends Pane {
 
@@ -79,12 +77,19 @@ public class Game extends Pane {
             return;
         Card card = (Card) e.getSource();
         Pile pile = getValidIntersectingPile(card, tableauPiles);
+        if (pile == null) {
+            pile = getValidIntersectingPile(card, foundationPiles);
+        }
+        List<Pile> piles = FXCollections.observableArrayList();
+        piles.addAll(tableauPiles);
+        piles.addAll(foundationPiles);
         //TODO
         if (pile != null) {
             handleValidMove(card, pile);
         } else {
             draggedCards.forEach(MouseUtil::slideBack);
-            draggedCards = null;
+            draggedCards.clear();
+            return;
         }
     };
 
@@ -98,6 +103,7 @@ public class Game extends Pane {
 
     public Game() {
         deck = Card.createNewDeck();
+        Collections.shuffle(deck);
         initPiles();
         dealCards();
     }
@@ -123,27 +129,20 @@ public class Game extends Pane {
 
     public boolean isMoveValid(Card card, Pile destPile) {
         //TODO
+        System.out.println("Pile type: "+destPile.getPileType());
         boolean isMoveValid = true;
         Card lastCardDestPile = destPile.getTopCard();
-        if (lastCardDestPile.equals(tableauPiles)) {
+        if (destPile.getPileType().equals(Pile.PileType.TABLEAU)) {
             if (lastCardDestPile != null) {
-                if (Card.isOppositeColor(card, lastCardDestPile) && (card.getRank() + 1 == lastCardDestPile.getRank())) {
-                    isMoveValid = true;
-                } else {
-                    isMoveValid = false;
-                }
+                isMoveValid = Card.isOppositeColor(card, lastCardDestPile) && (card.getRank() + 1 == lastCardDestPile.getRank());
             } else {
                 if (card.getRank() != 13) {
                     isMoveValid = false;
                 }
             }
-        } else if (lastCardDestPile.equals(foundationPiles)) {
+        } else if (destPile.getPileType().equals(Pile.PileType.FOUNDATION)) {
             if (lastCardDestPile != null) {
-                if ((Card.isSameSuit(card, lastCardDestPile)) && (card.getRank() == lastCardDestPile.getRank()+1)) {
-                    isMoveValid = true;
-                } else {
-                    isMoveValid = false;
-                }
+                isMoveValid = (Card.isSameSuit(card, lastCardDestPile)) && (card.getRank() == lastCardDestPile.getRank() + 1);
             } else {
                 if (card.getRank() != 1) {
                     isMoveValid = false;
