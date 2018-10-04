@@ -14,7 +14,10 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Game extends Pane {
 
@@ -91,11 +94,18 @@ public class Game extends Pane {
             draggedCards.clear();
             return;
         }
+        isGameWon();
     };
 
     public boolean isGameWon() {
         //TODO
-        if (discardPile.isEmpty() && stockPile.isEmpty() && tableauPiles.isEmpty()) {
+        try {
+            TimeUnit.MILLISECONDS.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+         if (discardPile.isEmpty() && stockPile.isEmpty() && tableauPiles.isEmpty()) {
             return true;}
 
         return false;
@@ -129,7 +139,6 @@ public class Game extends Pane {
 
     public boolean isMoveValid(Card card, Pile destPile) {
         //TODO
-        System.out.println("Pile type: "+destPile.getPileType());
         boolean isMoveValid = true;
         Card lastCardDestPile = destPile.getTopCard();
         if (destPile.getPileType().equals(Pile.PileType.TABLEAU)) {
