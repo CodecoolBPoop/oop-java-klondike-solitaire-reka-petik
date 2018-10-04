@@ -15,6 +15,7 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -100,13 +101,15 @@ public class Game extends Pane {
     public boolean isGameWon() {
         //TODO
         try {
-            TimeUnit.MILLISECONDS.sleep(1000);
+            TimeUnit.MILLISECONDS.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
          if (discardPile.isEmpty() && stockPile.isEmpty() && tableauPiles.isEmpty()) {
-            return true;}
+             System.out.println("You win!");
+            return true;
+         }
 
         return false;
     }
