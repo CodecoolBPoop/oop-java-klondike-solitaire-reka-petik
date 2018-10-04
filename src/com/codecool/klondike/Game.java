@@ -17,6 +17,7 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class Game extends Pane {
 
@@ -86,11 +87,18 @@ public class Game extends Pane {
             draggedCards.forEach(MouseUtil::slideBack);
             draggedCards = null;
         }
+        isGameWon();
     };
 
     public boolean isGameWon() {
         //TODO
-        if (discardPile.isEmpty() && stockPile.isEmpty() && tableauPiles.isEmpty()) {
+        try {
+            TimeUnit.MILLISECONDS.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+         if (discardPile.isEmpty() && stockPile.isEmpty() && tableauPiles.isEmpty()) {
             return true;}
 
         return false;
@@ -183,6 +191,7 @@ public class Game extends Pane {
         System.out.println(msg);
         MouseUtil.slideToDest(draggedCards, destPile);
         draggedCards.clear();
+
     }
 
 
