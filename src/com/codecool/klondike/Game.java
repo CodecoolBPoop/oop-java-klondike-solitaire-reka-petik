@@ -45,6 +45,7 @@ public class Game extends Pane {
             card.setMouseTransparent(false);
             System.out.println("Placed " + card + " to the waste.");
         }
+
     };
 
     private EventHandler<MouseEvent> stockReverseCardsHandler = e -> {
@@ -95,6 +96,7 @@ public class Game extends Pane {
             draggedCards.clear();
             return;
         }
+
         isGameWon();
     };
 
@@ -232,6 +234,18 @@ public class Game extends Pane {
     public void dealCards() {
         Iterator<Card> deckIterator = deck.iterator();
         //TODO
+
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j <= i; j++) {
+                Card card = deckIterator.next();
+                if (j == i) {
+                    card.flip();
+                }
+                tableauPiles.get(i).addCard(card);
+                addMouseEventHandlers(card);
+                getChildren().add(card);
+            }
+        }
         deckIterator.forEachRemaining(card -> {
             stockPile.addCard(card);
             addMouseEventHandlers(card);
