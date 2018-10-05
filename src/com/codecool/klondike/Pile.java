@@ -73,6 +73,13 @@ public class Pile extends Pane {
         else
             return cards.get(cards.size() - 1);
     }
+    public Card getTopCard(int poz) {
+        if (cards.isEmpty())
+            return null;
+        else
+            return cards.get(cards.size() - 1-poz);
+    }
+
 
     public void setBlurredBackground() {
         setPrefSize(Card.WIDTH, Card.HEIGHT);
