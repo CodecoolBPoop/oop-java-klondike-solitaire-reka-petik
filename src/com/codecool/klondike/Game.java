@@ -39,11 +39,14 @@ public class Game extends Pane {
 
     private EventHandler<MouseEvent> onMouseClickedHandler = e -> {
         Card card = (Card) e.getSource();
+        Pile sourcePile = card.getContainingPile();
         if (card.getContainingPile().getPileType() == Pile.PileType.STOCK) {
             card.moveToPile(discardPile);
             card.flip();
             card.setMouseTransparent(false);
             System.out.println("Placed " + card + " to the waste.");
+        } else if (card.getContainingPile().getPileType() == Pile.PileType.TABLEAU && card.isFaceDown()) {
+            card.flip();
         }
 
     };
@@ -96,7 +99,6 @@ public class Game extends Pane {
             draggedCards.clear();
             return;
         }
-
         isGameWon();
     };
 
