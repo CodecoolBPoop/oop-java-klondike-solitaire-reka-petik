@@ -94,7 +94,7 @@ public class Game extends Pane {
         piles.addAll(foundationPiles);
         //TODO
         if(card.getContainingPile().getPileType() == Pile.PileType.TABLEAU ){
-            if (pile.getTopCard() != null) {
+            if (    card.getContainingPile().numOfCards() > 1) {
                if(card.getContainingPile().getTopCard(1).isFaceDown() == true) {
                    card.getContainingPile().getTopCard(1).flip();
                }
