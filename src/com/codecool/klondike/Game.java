@@ -46,8 +46,6 @@ public class Game extends Pane {
             card.flip();
             card.setMouseTransparent(false);
             System.out.println("Placed " + card + " to the waste.");
-        } else if (card.getContainingPile().getPileType() == Pile.PileType.TABLEAU && card.isFaceDown()) {
-            card.flip();
         }
 
     };
